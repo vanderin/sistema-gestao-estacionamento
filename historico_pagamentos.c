@@ -1,6 +1,3 @@
-
-
-
 void registarHistoricoTitulo(char *matricula, float valor, struct tm inicio, struct tm fim) {
     FILE *f = fopen("historico.txt", "a");
     if (f == NULL) {
