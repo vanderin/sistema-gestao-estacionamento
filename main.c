@@ -2,6 +2,7 @@
 
 int main()
 {
+
   inserirTitulo(&head);
   inserirTitulo(&head);
   inserirTitulo(&head);

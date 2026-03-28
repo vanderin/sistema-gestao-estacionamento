@@ -6,6 +6,29 @@
 
 Titulo* head = NULL;
 
+void obterHoras(int horas, int minutos, Titulo* novo_titulo)
+{
+  time_t agora = time(NULL);
+  struct tm tm_inicio;
+  struct tm tm_fim;
+
+  // Local time separa os valores (horas, minutos, segundos, etc...) e manda para um struct tm
+  localtime_r(&agora, &tm_inicio);
+  localtime_r(&agora, &novo_titulo->tm_fim);
+
+  novo_titulo->tm_fim.tm_hour = tm_inicio.tm_hour + horas;
+  novo_titulo->tm_fim.tm_min = tm_inicio.tm_min + minutos;
+
+  // mktime() normaliza as horas. Por exemplo, ao somar 70 minutos a 12:50, o resultado vai ser 14:00 em vez de 12:120.
+  if (mktime(&novo_titulo->tm_fim) == (time_t)-1) {
+    printf("Erro ao normalizar data/hora.\n");
+    return;
+  }
+
+  printf("Horas Inicio: %d:%d:00\n", tm_inicio.tm_hour, tm_inicio.tm_min);
+  printf("Horas Fim: %d:%d:00\n", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
+}
+
 // Inserir valor e matricula
 void pedirValorMatricula(char matricula[30], float* valor)
 {
@@ -23,10 +46,9 @@ void pedirValorMatricula(char matricula[30], float* valor)
 Titulo* criarTitulo()
 {
   static int current_id = 1;
-  int tempo_estacionamento;
-  int vezes;
   char matricula[30];
   float valor = 0;
+  int minutos_total, horas, minutos;
   
   pedirValorMatricula(matricula, &valor); 
   
@@ -40,13 +62,14 @@ Titulo* criarTitulo()
   strcpy(novo_titulo->matricula, matricula);
 
   // Calcular tempo de estacionamento a partir do valor
-  vezes = valor / 0.25;
-  tempo_estacionamento = vezes * 15;
-  printf("Tempo de estacionamento: %d minutos\n", tempo_estacionamento);
+  minutos_total = (valor / 0.25) * 15;
+  horas = minutos_total / 60;
+  minutos = minutos_total % 60;
   
-  // Criar hora de inicio
-
-  // Criar hora de fim
+  //printf("Tempo de estacionamento: %d minutos\n", tempo_estacionamento);
+  
+  // Obter hora de inicio e hora de fim
+  obterHoras(horas, minutos, novo_titulo);
 
   // Proximo titulo
   novo_titulo->next = NULL;
@@ -85,9 +108,14 @@ void listarTitulos(Titulo** head)
 
   Titulo* current = *head;
 
+  printf("\n");
+  
   while (current != NULL)
   {
     printf("Matricula: %s\n", current->matricula);
+    printf("Hora do fim: %d:%d:00\n", current->tm_fim.tm_hour, current->tm_fim.tm_min);
+    printf("- - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+    
     current = current->next;
   }
 }
