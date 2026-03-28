@@ -25,7 +25,8 @@ void obterHoras(int horas, int minutos, Titulo* novo_titulo)
     return;
   }
 
-  printf("Horas Inicio: %d:%d:00\n", tm_inicio.tm_hour, tm_inicio.tm_min);
+  printf("Tempo inserido: %d:%d:00\n", horas, minutos);
+  //printf("Horas Inicio: %d:%d:00\n", tm_inicio.tm_hour, tm_inicio.tm_min);
   printf("Horas Fim: %d:%d:00\n", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
 }
 
@@ -73,6 +74,8 @@ Titulo* criarTitulo()
 
   // Proximo titulo
   novo_titulo->next = NULL;
+
+  printf("\n");
 
   return novo_titulo;
 }
