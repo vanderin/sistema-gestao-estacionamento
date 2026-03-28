@@ -1,4 +1,5 @@
 #include "titulos_avulsos.h"
+#include "motor_de_pesquisa.h"
 
 int main()
 {
@@ -8,6 +9,8 @@ int main()
   inserirTitulo(&head);
   
   listarTitulos(&head);
+
+  pesquisarTitulo(&head);
 
   return 0;
 }
