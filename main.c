@@ -13,11 +13,15 @@ listarTitulos(&head);
 
 pesquisarTitulo(&head);
 */
-
-  adicionarInfracao(&head_infracao, "a");
-  listarInfracoes(&head_infracao);
   
-  pesquisarInfracao(&head_infracao);
+  inserirTitulo(&head);
+  inserirTitulo(&head);
+  inserirTitulo(&head);
+
+  listarTitulos(&head);
+
+  fiscalizar();
+  
   listarInfracoes(&head_infracao);
   
   return 0;

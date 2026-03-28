@@ -9,8 +9,7 @@ typedef struct Infracao
 
 extern Infracao* head_infracao;
 
-Infracao* criarInfracao(Infracao** head_infracao, const char* matricula);
-void pesquisarInfracao(Infracao** head_infracao);
+Infracao* criarInfracao(Infracao** head_infracao, char* matricula);
 void adicionarInfracao(Infracao** head_infracao, char* matricula);
 void listarInfracoes(Infracao** head_infracao);
 

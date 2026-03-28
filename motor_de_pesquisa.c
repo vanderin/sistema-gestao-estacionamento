@@ -4,17 +4,13 @@
 #include "titulos_avulsos.h"
 #include "infracoes.h"
 
-void pesquisarTitulo(Titulo** head)
+int pesquisarTitulo(Titulo** head, char* matricula)
 {
-  char matricula[30];
   time_t agora = time(NULL);
   struct tm hora_atual;
 
   // Local time separa os valores (horas, minutos, segundos, etc...) do epoch e manda cada um para um struct tm
   localtime_r(&agora, &hora_atual);
-  
-  printf("Insira a matricula: ");
-  scanf("%s", matricula);
 
   Titulo* current = *head;
 
@@ -24,14 +20,15 @@ void pesquisarTitulo(Titulo** head)
     {
       printf("Matricula encontrada!\n");
 
+      // Titulo invalido (hora do fim ultrapassada)
       if (hora_atual.tm_hour >= current->tm_fim.tm_hour || (hora_atual.tm_hour = current->tm_fim.tm_hour && hora_atual.tm_min > current->tm_fim.tm_min))
       {
-        printf("Inválido - Infração Registada\n");
-        return;
+        return -1;
       }
+
+      // Titulo valido
       else
-        printf("Válido por Título\n");
-        return;
+        return 1;
     }
     current = current->next;
   }
@@ -40,32 +37,50 @@ void pesquisarTitulo(Titulo** head)
 
 }
 
-// Pesquisa a infração atraves da matricula
-// Se já existir uma infraçao com essa matricula, nao faz nada
-// Se ainda nao existir uma infraçao com essa matricula, adiciona essa infraçao
-void pesquisarInfracao(Infracao** head_infracao)
+
+int pesquisarInfracao(Infracao** head_infracao, char* matricula)
 {
   Infracao* current = *head_infracao;
-  char matricula[30];
 
-    printf("Inserir matricula: ");
-    scanf("%29s", matricula);
-
-    // Se a matricula for encontrada nas infraçoes, nao faz nada
+    // Se a matricula for encontrada nas infraçoes, retornar 1
     while (current != NULL)
     {
         if (strcmp(matricula, current->matricula) == 0)
         {
-            printf("Infração Repetida no Mesmo Dia\n");
-            return;
+            return 1;
         }
         
         current = current->next;
     }
-    
-    printf("Infração Não Repetida\n");
-    
-    // Adiciona infraçao caso matricula nao for encontrada nas infraçoes
-    adicionarInfracao(head_infracao, matricula);
-    printf("Infração adicionada\n");
+
+    // Caso nao tenha sido encontrada, retornar -1
+    return -1;
+}
+
+void fiscalizar()
+{
+  char matricula[30];
+
+  printf("Introduza a matricula: ");
+  scanf("%s", matricula);
+
+  // Pesquisa titulo avulso
+  if (pesquisarTitulo(&head, matricula) == 1)
+  {
+    printf("Válido por Título\n");
+    return;
+  }
+  
+  // Pesquisa avença
+  // PARTE DO GIL
+  
+  // Pesquisa infraçao
+  if (pesquisarInfracao(&head_infracao, matricula) == 1)
+  {
+    printf("Infração Registada no Mesmo Dia\n");
+    return;
+  }
+
+  adicionarInfracao(&head_infracao, matricula);
+  printf("Inválido - Infração Registada\n");
 }

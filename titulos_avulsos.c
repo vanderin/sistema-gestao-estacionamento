@@ -121,6 +121,8 @@ void listarTitulos(Titulo** head)
     
     current = current->next;
   }
+
+  printf("\n");
 }
 
 // Remover titulo

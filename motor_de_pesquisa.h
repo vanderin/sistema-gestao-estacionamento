@@ -4,5 +4,6 @@
 #include "titulos_avulsos.h"
 
 void pesquisarTitulo(Titulo** head);
+void fiscalizar();
 
 #endif
