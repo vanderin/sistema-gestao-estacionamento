@@ -9,10 +9,7 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="478e3d10-41c8-45fa-b31d-8faf1e62e6f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/historico_permanente.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/historico_permanente.h" afterDir="false" />
-    </list>
+    <list default="true" id="478e3d10-41c8-45fa-b31d-8faf1e62e6f2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +43,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "C/C++ File.main.c.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.RadMigrateCodeStyle": "true",
@@ -54,6 +52,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
@@ -120,6 +119,7 @@
       <workItem from="1775834065870" duration="3144000" />
       <workItem from="1775837282973" duration="57000" />
       <workItem from="1775837354194" duration="3884000" />
+      <workItem from="1776271974227" duration="638000" />
     </task>
     <servers />
   </component>
