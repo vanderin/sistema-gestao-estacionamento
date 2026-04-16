@@ -9,7 +9,12 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="478e3d10-41c8-45fa-b31d-8faf1e62e6f2" name="Changes" comment="" />
+    <list default="true" id="478e3d10-41c8-45fa-b31d-8faf1e62e6f2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/historico_pagamentos.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/historico_permanente.c" beforeDir="false" afterPath="$PROJECT_DIR$/historico_permanente.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/historico_sessao.c" beforeDir="false" afterPath="$PROJECT_DIR$/historico_sessao.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +124,7 @@
       <workItem from="1775834065870" duration="3144000" />
       <workItem from="1775837282973" duration="57000" />
       <workItem from="1775837354194" duration="3884000" />
-      <workItem from="1776271974227" duration="638000" />
+      <workItem from="1776271974227" duration="4355000" />
     </task>
     <servers />
   </component>

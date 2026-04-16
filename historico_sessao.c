@@ -43,7 +43,7 @@ void listarSessao() {
         printf("-> %s\n", atual->evento);
         atual = atual->next;
     }
-    printf("------------------------------------------\n");
+    printf("\n");
 }
 
 // Limpar a memória no final do programa
