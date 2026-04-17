@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
+#include "historico_permanente.h"
 #include "titulos_avulsos.h"
 #include "infracoes.h"
 
@@ -82,5 +84,6 @@ void fiscalizar()
   }
 
   adicionarInfracao(&head_infracao, matricula);
+  registarNoHistoricoTXT("Infracao registrada.");
   printf("Inválido - Infração Registada\n");
 }

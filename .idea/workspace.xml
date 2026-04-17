@@ -11,9 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="478e3d10-41c8-45fa-b31d-8faf1e62e6f2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/historico_pagamentos.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/historico_permanente.c" beforeDir="false" afterPath="$PROJECT_DIR$/historico_permanente.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/historico_sessao.c" beforeDir="false" afterPath="$PROJECT_DIR$/historico_sessao.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motor_de_pesquisa.c" beforeDir="false" afterPath="$PROJECT_DIR$/motor_de_pesquisa.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,28 +44,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "C/C++ File.main.c.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Utilizador/Documents/GitHub/sistema-gestao-estacionamento/main.c",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;C/C++ File.main.c.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Utilizador/Documents/GitHub/sistema-gestao-estacionamento/main.c&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="sistema-gestao-estacionamento" TARGET_NAME="main.c" CONFIG_NAME="main.c">
       <option name="sourceFile" value="main.c" />
@@ -124,11 +122,23 @@
       <workItem from="1775834065870" duration="3144000" />
       <workItem from="1775837282973" duration="57000" />
       <workItem from="1775837354194" duration="3884000" />
-      <workItem from="1776271974227" duration="4355000" />
+      <workItem from="1776271974227" duration="4751000" />
+      <workItem from="1776439103998" duration="2193000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.c</url>
+          <line>3</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
