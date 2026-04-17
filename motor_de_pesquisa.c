@@ -36,6 +36,7 @@ int pesquisarTitulo(Titulo** head, char* matricula)
   }
 
   printf("Matrícula %s não encontrada.\n", matricula);
+  return -1;
 
 }
 
