@@ -8,18 +8,19 @@
 #include "avencas.h"
 
 void guardarDadosBinarios() {
-    // 1. Guardar Títulos Avulsos (Lista Ligada)
+    // Guardar Títulos Avulsos
     FILE *fTitulos = fopen("titulos.bin", "wb");
     if (fTitulos) {
         Titulo* atual = head;
         while (atual != NULL) {
+            // Gravamos a estrutura, mas o campo 'next' gravado será ignorado ao ler
             fwrite(atual, sizeof(Titulo), 1, fTitulos);
             atual = atual->next;
         }
         fclose(fTitulos);
     }
 
-    // 2. Guardar Pedidos de Avença (Fila)
+    // Guardar Pedidos de Avença
     FILE *fPedidos = fopen("pedidos.bin", "wb");
     if (fPedidos) {
         Pedido* atual = filaPedidos.frente;
@@ -30,7 +31,7 @@ void guardarDadosBinarios() {
         fclose(fPedidos);
     }
 
-    // 3. Guardar Avenças Ativas (Lista Ligada)
+    // Guardar Avenças Ativas
     FILE *fAtivas = fopen("avencas_ativas.bin", "wb");
     if (fAtivas) {
         AvencaAtiva* atual = listaAvencasAtivas;
@@ -45,43 +46,62 @@ void guardarDadosBinarios() {
 
 
 
-
-
 void carregarDadosBinarios() {
-    // 1. Carregar Títulos
+    // Carregar Títulos
     FILE *fTitulos = fopen("titulos.bin", "rb");
     if (fTitulos) {
+        // Limpar a lista atual para evitar duplicados ou fugas de memória
+        head = NULL;
         Titulo temp;
         while (fread(&temp, sizeof(Titulo), 1, fTitulos)) {
             Titulo* novo = (Titulo*)malloc(sizeof(Titulo));
-            *novo = temp;
-            novo->next = head; // Insere no início para simplificar
-            head = novo;
+            if (novo) {
+                *novo = temp;       // Copia os dados
+                novo->next = head;  // Insere no início e limpa o ponteiro antigo lido
+                head = novo;
+            }
         }
         fclose(fTitulos);
     }
 
-    // 2. Carregar Pedidos de Avença (Fila)
+    // Carregar Pedidos de Avença
     FILE *fPedidos = fopen("pedidos.bin", "rb");
     if (fPedidos) {
+        // Reinicializa a fila
+        filaPedidos.frente = NULL;
+        filaPedidos.fim = NULL;
         Pedido temp;
         while (fread(&temp, sizeof(Pedido), 1, fPedidos)) {
-            // Reutiliza a lógica de submeter para reconstruir a fila
-            submeterPedido(temp.matricula, temp.nome, temp.zona, temp.mes_ano);
-            // Nota: Pode ser necessário ajustar o estado lido se for diferente de "Submetido"
+            // Criamos um novo nó para evitar usar o ponteiro 'next' inválido do ficheiro
+            Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
+            if (novo) {
+                *novo = temp;
+                novo->next = NULL; // Limpeza
+
+                // Reconstrução da Fila (FIFO)
+                if (filaPedidos.fim == NULL) {
+                    filaPedidos.frente = novo;
+                } else {
+                    filaPedidos.fim->next = novo;
+                }
+                filaPedidos.fim = novo;
+            }
         }
         fclose(fPedidos);
     }
 
-    // 3. Carregar Avenças Ativas
+    // Carregar Avenças Ativas
     FILE *fAtivas = fopen("avencas_ativas.bin", "rb");
     if (fAtivas) {
+        listaAvencasAtivas = NULL;
         AvencaAtiva temp;
         while (fread(&temp, sizeof(AvencaAtiva), 1, fAtivas)) {
             AvencaAtiva* nova = (AvencaAtiva*)malloc(sizeof(AvencaAtiva));
-            *nova = temp;
-            nova->next = listaAvencasAtivas;
-            listaAvencasAtivas = nova;
+            if (nova) {
+                *nova = temp;
+                nova->next = listaAvencasAtivas; // Insere e limpa ponteiro antigo
+                listaAvencasAtivas = nova;
+            }
         }
         fclose(fAtivas);
     }
