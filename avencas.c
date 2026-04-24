@@ -14,8 +14,7 @@ void inicializarFila() {
     filaPedidos.frente = NULL;
     filaPedidos.fim = NULL;
 }
-
-// 2.2 Submeter pedido (Adicionar à Fila)
+// Submeter pedido (Adicionar à Fila)
 void submeterPedido(char* matricula, char* nome, char* zona, char* mes) {
     static int id_gerador = 1;
     Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
@@ -68,11 +67,9 @@ void pagarAvenca(char* matricula) {
     // Procura nos pedidos aprovados
     Pedido* atual = filaPedidos.frente;
     Pedido* anterior = NULL;
-
     while (atual != NULL) {
         if (strcmp(atual->matricula, matricula) == 0 &&
             strcmp(atual->estado, "Aprovado a aguardar pagamento") == 0) {
-
             // Criar Avença Ativa [cite: 32]
             AvencaAtiva* nova = (AvencaAtiva*)malloc(sizeof(AvencaAtiva));
             nova->id = atual->id;
@@ -80,15 +77,12 @@ void pagarAvenca(char* matricula) {
             strcpy(nova->zona, atual->zona);
             strcpy(nova->mes_ano, atual->mes_ano);
             nova->pago = 1;
-
             // Inserir na lista de Ativas
             nova->next = listaAvencasAtivas;
             listaAvencasAtivas = nova;
-
             // Remover da fila de pedidos
             if (anterior == NULL) filaPedidos.frente = atual->next;
             else anterior->next = atual->next;
-
             if (atual == filaPedidos.fim) filaPedidos.fim = anterior;
 
             free(atual);

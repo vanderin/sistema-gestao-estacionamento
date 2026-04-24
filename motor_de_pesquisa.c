@@ -60,6 +60,21 @@ int pesquisarInfracao(Infracao** head_infracao, char* matricula)
     return -1;
 }
 
+
+int pesquisarAvenca(AvencaAtiva* head, char* matricula) {
+  AvencaAtiva* atual = head;
+
+  while (atual != NULL) {
+    // Verifica se a matrícula coincide e se a avença está ativa (pago = 1)
+    if (strcmp(atual->matricula, matricula) == 0 && atual->pago == 1) {
+      return 1; // Avença encontrada e válida
+    }
+    atual = atual->next;
+  }
+  return -1; // Nenhuma avença válida encontrada
+}
+
+
 void fiscalizar()
 {
   char matricula[30];
@@ -75,8 +90,11 @@ void fiscalizar()
   }
   
   // Pesquisa avença
-  // PARTE DO GIL
-  
+  if (pesquisarAvenca(listaAvencasAtivas, matricula) == 1) {
+    printf("Veículo com Avença de Morador Ativa.\n");
+    return;
+  }
+
   // Pesquisa infraçao
   if (pesquisarInfracao(&head_infracao, matricula) == 1)
   {
