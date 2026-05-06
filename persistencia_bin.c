@@ -41,6 +41,18 @@ void guardarDadosBinarios() {
         }
         fclose(fAtivas);
     }
+
+    // Guardar Lista de Infrações
+    FILE *fInfracoes = fopen("infracoes.bin", "wb");
+    if (fInfracoes) {
+        Infracao* atual = head_infracao; // Usa a global externa
+        while (atual != NULL) {
+            // Gravamos a estrutura (o ponteiro 'next' será ignorado na leitura)
+            fwrite(atual, sizeof(Infracao), 1, fInfracoes);
+            atual = atual->next;
+        }
+        fclose(fInfracoes);
+    }
 }
 
 
@@ -104,5 +116,22 @@ void carregarDadosBinarios() {
             }
         }
         fclose(fAtivas);
+    }
+
+    // Carregar Lista de Infrações
+    FILE *fInfracoes = fopen("infracoes.bin", "rb");
+    if (fInfracoes) {
+        head_infracao = NULL; // Garante que a lista começa limpa
+        Infracao temp;
+        while (fread(&temp, sizeof(Infracao), 1, fInfracoes)) {
+            // Alocar memória para o novo nó
+            Infracao* nova = (Infracao*)malloc(sizeof(Infracao));
+            if (nova) {
+                *nova = temp;       // Copia os dados (matrícula, data, etc)
+                nova->next = head_infracao; // Insere no início da lista
+                head_infracao = nova;
+            }
+        }
+        fclose(fInfracoes);
     }
 }

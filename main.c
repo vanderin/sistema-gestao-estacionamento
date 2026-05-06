@@ -17,19 +17,19 @@ void menuAvenças() {
     char matricula[30], nome[100], zona[10], mes[10];
 
     do {
-        printf("\n--- GESTÃO DE AVENÇAS ---");
+        printf("\n--- GESTaO DE AVENcAS ---");
         printf("\n1. Submeter Pedido");
-        printf("\n2. Processar Próximo Pedido (Aprovar/Rejeitar)");
-        printf("\n3. Registar Pagamento e Ativar Avença");
+        printf("\n2. Processar Proximo Pedido (Aprovar/Rejeitar)");
+        printf("\n3. Registar Pagamento e Ativar Avenca");
         printf("\n4. Listar Pedidos Pendentes");
-        printf("\n5. Listar Avenças Ativas");
+        printf("\n5. Listar Avencas Ativas");
         printf("\n0. Voltar");
         printf("\nEscolha: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
             case 1:
-                printf("Matrícula: "); scanf("%s", matricula);
+                printf("Matricula: "); scanf("%s", matricula);
                 printf("Nome: "); scanf("%s", nome);
                 printf("Zona (ex: C4): "); scanf("%s", zona);
                 printf("Mês/Ano (MM/AAAA): "); scanf("%s", mes);
