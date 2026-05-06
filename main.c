@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "avencas.h"
 #include "titulos_avulsos.h"
 #include "historico_sessao.h"
