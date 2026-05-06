@@ -23,7 +23,7 @@ int pesquisarTitulo(Titulo** head, char* matricula)
       printf("Matricula encontrada!\n");
 
       // Titulo invalido (hora do fim ultrapassada)
-      if (hora_atual.tm_hour >= current->tm_fim.tm_hour || (hora_atual.tm_hour = current->tm_fim.tm_hour && hora_atual.tm_min > current->tm_fim.tm_min))
+      if (hora_atual.tm_hour >= current->tm_fim.tm_hour || (hora_atual.tm_hour == current->tm_fim.tm_hour && hora_atual.tm_min > current->tm_fim.tm_min))
       {
         return -1;
       }
