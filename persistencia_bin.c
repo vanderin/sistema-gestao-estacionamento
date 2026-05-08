@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "titulos_avulsos.h"
 #include "avencas.h"
+#include "infracoes.h"
 
 void guardarDadosBinarios() {
     // Guardar Títulos Avulsos

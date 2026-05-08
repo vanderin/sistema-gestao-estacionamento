@@ -5,6 +5,7 @@
 #include "historico_permanente.h"
 #include "titulos_avulsos.h"
 #include "infracoes.h"
+#include "avencas.h"
 
 int pesquisarTitulo(Titulo** head, char* matricula)
 {

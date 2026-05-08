@@ -96,6 +96,16 @@ void pagarAvenca(char* matricula) {
     printf("Nenhum pedido aprovado encontrado para esta matrícula.\n");
 }
 
+void listarPedidos() {
+    Pedido* atual = filaPedidos.frente;
+    printf("\n--- PEDIDOS DE AVENÇA ---\n");
+    while (atual) {
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
+               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
+        atual = atual->next;
+    }
+}
+
 void listarAvencasAtivas() {
     AvencaAtiva* atual = listaAvencasAtivas;
     printf("\n--- AVENÇAS ATIVAS ---\n");
