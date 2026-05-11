@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+
+#include "historico_permanente.h"
 #include "titulos_avulsos.h"
 #include "infracoes.h"
+#include "avencas.h"
 
 int pesquisarTitulo(Titulo** head, char* matricula)
 {
@@ -21,7 +24,7 @@ int pesquisarTitulo(Titulo** head, char* matricula)
       printf("Matricula encontrada!\n");
 
       // Titulo invalido (hora do fim ultrapassada)
-      if (hora_atual.tm_hour >= current->tm_fim.tm_hour || (hora_atual.tm_hour = current->tm_fim.tm_hour && hora_atual.tm_min > current->tm_fim.tm_min))
+      if (hora_atual.tm_hour >= current->tm_fim.tm_hour || (hora_atual.tm_hour == current->tm_fim.tm_hour && hora_atual.tm_min > current->tm_fim.tm_min))
       {
         return -1;
       }
@@ -34,6 +37,7 @@ int pesquisarTitulo(Titulo** head, char* matricula)
   }
 
   printf("Matrícula %s não encontrada.\n", matricula);
+  return -1;
 
 }
 
@@ -57,6 +61,21 @@ int pesquisarInfracao(Infracao** head_infracao, char* matricula)
     return -1;
 }
 
+
+int pesquisarAvenca(AvencaAtiva* head, char* matricula) {
+  AvencaAtiva* atual = head;
+
+  while (atual != NULL) {
+    // Verifica se a matrícula coincide e se a avença está ativa (pago = 1)
+    if (strcmp(atual->matricula, matricula) == 0 && atual->pago == 1) {
+      return 1; // Avença encontrada e válida
+    }
+    atual = atual->next;
+  }
+  return -1; // Nenhuma avença válida encontrada
+}
+
+
 void fiscalizar()
 {
   char matricula[30];
@@ -72,8 +91,11 @@ void fiscalizar()
   }
   
   // Pesquisa avença
-  // PARTE DO GIL
-  
+  if (pesquisarAvenca(listaAvencasAtivas, matricula) == 1) {
+    printf("Veículo com Avença de Morador Ativa.\n");
+    return;
+  }
+
   // Pesquisa infraçao
   if (pesquisarInfracao(&head_infracao, matricula) == 1)
   {
@@ -82,5 +104,6 @@ void fiscalizar()
   }
 
   adicionarInfracao(&head_infracao, matricula);
+  registarNoHistoricoTXT("Infracao registrada.");
   printf("Inválido - Infração Registada\n");
 }

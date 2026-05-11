@@ -125,8 +125,3 @@ void listarTitulos(Titulo** head)
   printf("\n");
 }
 
-// Remover titulo
-Titulo* removerTitulo(Titulo* head)
-{
-  
-}
