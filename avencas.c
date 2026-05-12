@@ -13,7 +13,7 @@ void inicializarFila() {
     filaPedidosPagamento.fim = NULL;
 }
 
-void criarPedido(char* matricula, char* nome, char* zona, char* mes) {
+void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano) {
     static int id_gerador = 1;
     Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
     
@@ -32,6 +32,7 @@ void criarPedido(char* matricula, char* nome, char* zona, char* mes) {
     strcpy(novo->estado, "Submetido");
     novo->next = NULL;
 
+    // Adicionar `a fila dos pedidos
     if (filaPedidos.fim == NULL) {
         filaPedidos.frente = novo;
     } else {
@@ -39,7 +40,8 @@ void criarPedido(char* matricula, char* nome, char* zona, char* mes) {
     }
     filaPedidos.fim = novo;
 
-    push("Novo pedido de avença submetido."); // Registo na Pilha de Sessão
+    // Log
+    push("Novo pedido de avença submetido.");
 }
 
 void listarPedidos() {
@@ -68,8 +70,8 @@ void listarAvencasAtivas() {
     AvencaAtiva* atual = listaAvencasAtivas;
     printf("\n--- AVENÇAS ATIVAS ---\n");
     while (atual) {
-        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %s\n",
-               atual->id, atual->matricula, atual->zona, atual->mes_ano);
+        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %i/%i\n",
+               atual->id, atual->matricula, atual->zona, atual->mes, atual->ano);
         atual = atual->next;
     }
 }
@@ -89,6 +91,8 @@ void adicionarPedido(FilaPedidos* fila, Pedido* pedido)
     fila->fim = pedido;
 }
 
+void adicionarAListaAvencas();
+
 // Retira e apaga da memoria um pedido de uma fila
 void rejeitarPedido(FilaPedidos* fila)
 {
@@ -96,7 +100,7 @@ void rejeitarPedido(FilaPedidos* fila)
     {
         fila->fim = NULL;
         
-        return NULL;
+        return;
     }
 
     Pedido* del_pedido = fila->frente;
@@ -106,10 +110,10 @@ void rejeitarPedido(FilaPedidos* fila)
         fila->fim = NULL;
         
     free(del_pedido);
-    }
+}
     
 // Aprova o Pedido: Retira o pedido de uma fila (filaPedidos) e move para outra fila (filaPedidosPagamento)
-void aprovarPedido(FIlaPedidos* filaPedidos, FilaPedidos filaPedidosPagamento)
+void aprovarPedido(FilaPedidos* filaPedidos, FilaPedidos* filaPedidosPagamento)
 {
     Pedido* pedido = filaPedidos->frente;
 
@@ -122,7 +126,7 @@ void aprovarPedido(FIlaPedidos* filaPedidos, FilaPedidos filaPedidosPagamento)
 
 // Processar pedido (Ler primeiro Pedido da Fila e decidir)
 void processarProximoPedido(FilaPedidos* filaPedidos) {
-    if (filaPedidos.frente == NULL) {
+    if (filaPedidos->frente == NULL) {
         printf("Não existem pedidos pendentes.\n");
         
         return;
@@ -130,7 +134,7 @@ void processarProximoPedido(FilaPedidos* filaPedidos) {
 
     int opcao = 0;
 
-    Pedido* temp = filaPedidos.frente;
+    Pedido* temp = filaPedidos->frente;
 
     printf("Pedido de Avença:\n");
     printf("ID: %d\n", temp->id);
@@ -154,7 +158,7 @@ void processarProximoPedido(FilaPedidos* filaPedidos) {
     if (opcao == 1) {
         Pedido* pedido_aprovado = filaPedidos->frente;
 
-        aprovarPedido(filaPedidos, &filaPedidosPagamento)
+        aprovarPedido(filaPedidos, &filaPedidosPagamento);
 
         strcpy(pedido_aprovado->estado, "Aprovado a aguardar pagamento");
 
@@ -173,20 +177,41 @@ void pagarAvenca(char* matricula) {
     // Procura nos pedidos aprovados
     Pedido* atual = filaPedidosPagamento.frente;
     Pedido* anterior = NULL;
+    float dinheiro_inserido;
     
     while (atual != NULL) {
-        if (strcmp(atual->matricula, matricula) == 0) 
+        if (strcmp(atual->matricula, matricula) == 0)
         {
+            do
+            {
+                printf("Efetue o pagamento da Avença (10 €): ");
+                scanf("%f", &dinheiro_inserido);
+
+                if (dinheiro_inserido < 10)
+                {
+                    printf("Valor inserido insuficiente. Introduza novamente.\n");
+                }
+                else if (dinheiro_inserido > 10)
+                {
+                    printf("Pagamento realizado com sucesso.\n");
+                    printf("Troco: %.2f\n", dinheiro_inserido - 10);
+                }
+            }
+            while (dinheiro_inserido < 10);
+
             // Criar Avença Ativa
             AvencaAtiva* nova = (AvencaAtiva*)malloc(sizeof(AvencaAtiva));
             nova->id = atual->id;
             strcpy(nova->matricula, atual->matricula);
             strcpy(nova->zona, atual->zona);
-            strcpy(nova->mes_ano, atual->mes_ano);
-            nova->pago = 1;
+            nova->mes = atual->mes;
+            nova->ano = atual->ano;
+            nova->next = NULL;
+            
             // Inserir na lista de Ativas
             nova->next = listaAvencasAtivas;
             listaAvencasAtivas = nova;
+            
             // Remover da fila de pedidos
             if (anterior == NULL) filaPedidos.frente = atual->next;
             else anterior->next = atual->next;

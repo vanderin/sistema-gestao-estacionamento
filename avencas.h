@@ -13,18 +13,20 @@ typedef struct Pedido {
     struct Pedido* next;
 } Pedido;
 
+// Tanto serve para a fila dos Pedidos como para a fila dos Pedidos a aguardar pagamento (filaPedidosPagamento)
 typedef struct FilaPedidos{
     Pedido* frente;
     Pedido* fim;
 } FilaPedidos;
 
-// Estrutura para Avença Ativa (Lista Ligada ou Vetor)
+// Estrutura para Avença Ativa
 typedef struct AvencaAtiva {
     int id;
     char matricula[30];
+    char nome[100];
     char zona[10];
-    char mes_ano[10];
-    int pago; // 1 para pago, 0 para não
+    int mes;
+    int ano;
     struct AvencaAtiva* next;
 } AvencaAtiva;
 
@@ -35,8 +37,8 @@ extern AvencaAtiva* listaAvencasAtivas;
 
 // Protótipos
 void inicializarFila();
-void criarPedido(char* matricula, char* nome, char* zona, char* mes);
-void processarProximoPedido(int aprovar); // 1 para Aprovar, 0 para Rejeitar
+void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano);
+void processarProximoPedido(FilaPedidos* filaPedidos);
 void pagarAvenca(char* matricula);
 void listarPedidos();
 void listarAvencasAtivas();
