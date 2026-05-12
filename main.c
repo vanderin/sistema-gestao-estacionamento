@@ -63,7 +63,7 @@ void menuAvenças() {
 int main() {
     int opcao;
 
-    // 1. Carregar dados guardados (Persistência Binária)
+    // Carregar dados guardados (Persistência Binária)
     carregarDadosBinarios();
     inicializarFila(); // Garante que os ponteiros da fila estão prontos se o ficheiro não existir
 
@@ -86,11 +86,11 @@ int main() {
 
         switch (opcao) {
             case 1:
-                inserirTitulo(&head); //
+                inserirTitulo(&head);
                 push("Título emitido no parquímetro.");
                 break;
             case 2:
-                fiscalizar(); // Fluxo sequencial conforme enunciado
+                fiscalizar(); // Fluxo sequencial
                 break;
             case 3:
                 menuAvenças();
@@ -99,14 +99,14 @@ int main() {
                 listarTitulos(&head);
                 break;
             case 5:
-                listarSessao(); //
+                listarSessao();
                 break;
             case 6:
-                listarInfracoes(&head_infracao); //
+                listarInfracoes(&head_infracao);
                 break;
             case 0:
                 printf("\nA guardar dados e a encerrar...\n");
-                guardarDadosBinarios(); //
+                guardarDadosBinarios();
                 limparPilha();
                 break;
             default:
