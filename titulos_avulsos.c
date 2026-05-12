@@ -4,7 +4,7 @@
 #include <time.h>
 #include "titulos_avulsos.h"
 
-Titulo* head = NULL;
+Titulo* head_titulos_avulsos = NULL;
 
 void obterHoras(int horas, int minutos, Titulo* novo_titulo)
 {

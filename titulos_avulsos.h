@@ -11,7 +11,7 @@ typedef struct Titulo
   struct Titulo* next;
 } Titulo;
 
-extern Titulo* head;
+extern Titulo* head_titulos_avulsos;
 
 void pedirValorMatricula(char matricula[30], float* valor);
 Titulo* criarTitulo();

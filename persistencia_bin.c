@@ -8,7 +8,7 @@ void guardarDadosBinarios() {
     // Guardar Títulos Avulsos
     FILE *fTitulos = fopen("titulos.bin", "wb");
     if (fTitulos) {
-        Titulo* atual = head;
+        Titulo* atual = head_titulos_avulsos;
         while (atual != NULL) {
             // Gravamos a estrutura, mas o campo 'next' gravado será ignorado ao ler
             fwrite(atual, sizeof(Titulo), 1, fTitulos);
@@ -60,14 +60,14 @@ void carregarDadosBinarios() {
     FILE *fTitulos = fopen("titulos.bin", "rb");
     if (fTitulos) {
         // Limpar a lista atual para evitar duplicados ou fugas de memória
-        head = NULL;
+        head_titulos_avulsos = NULL;
         Titulo temp;
         while (fread(&temp, sizeof(Titulo), 1, fTitulos)) {
             Titulo* novo = (Titulo*)malloc(sizeof(Titulo));
             if (novo) {
                 *novo = temp;       // Copia os dados
-                novo->next = head;  // Insere no início e limpa o ponteiro antigo lido
-                head = novo;
+                novo->next = head_titulos_avulsos;  // Insere no início e limpa o ponteiro antigo lido
+                head_titulos_avulsos = novo;
             }
         }
         fclose(fTitulos);

@@ -16,6 +16,7 @@ void carregarDadosBinarios();
 void menuAvenças() {
     int opcao;
     char matricula[30], nome[100], zona[10], mes[10];
+    int mes_int, ano_int;
 
     do {
         printf("\n--- GESTaO DE AVENcAS ---");
@@ -34,16 +35,16 @@ void menuAvenças() {
                 printf("Nome: "); scanf("%s", nome);
                 printf("Zona (ex: C4): "); scanf("%s", zona);
                 printf("Mês/Ano (MM/AAAA): "); scanf("%s", mes);
-                submeterPedido(matricula, nome, zona, mes);
+                if (sscanf(mes, "%d/%d", &mes_int, &ano_int) == 2)
+                    criarPedido(matricula, nome, zona, mes_int, ano_int);
+                else
+                    printf("Formato inválido. Use MM/AAAA.\n");
                 break;
             case 2:
                 if (filaPedidos.frente == NULL) {
                     printf("Fila vazia.\n");
                 } else {
-                    int dec;
-                    printf("Aprovar pedido de %s? (1-Sim, 0-Não): ", filaPedidos.frente->matricula);
-                    scanf("%d", &dec);
-                    processarProximoPedido(dec);
+                    processarProximoPedido(&filaPedidos);
                 }
                 break;
             case 3:
@@ -86,7 +87,7 @@ int main() {
 
         switch (opcao) {
             case 1:
-                inserirTitulo(&head);
+                inserirTitulo(&head_titulos_avulsos);
                 push("Título emitido no parquímetro.");
                 break;
             case 2:
@@ -96,7 +97,7 @@ int main() {
                 menuAvenças();
                 break;
             case 4:
-                listarTitulos(&head);
+                listarTitulos(&head_titulos_avulsos);
                 break;
             case 5:
                 listarSessao();

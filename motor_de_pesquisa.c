@@ -12,7 +12,8 @@ int pesquisarTitulo(Titulo** head, char* matricula)
   time_t agora = time(NULL);
   struct tm hora_atual;
 
-  // Local time separa os valores (horas, minutos, segundos, etc...) do epoch e manda cada um para um struct tm
+  // Local time separa os valores (horas, minutos, segundos, etc...) do epoch e manda cada um para um campo
+  // do struct tm
   localtime_r(&agora, &hora_atual);
 
   Titulo* current = *head;
@@ -38,7 +39,6 @@ int pesquisarTitulo(Titulo** head, char* matricula)
 
   printf("Matrícula %s não encontrada.\n", matricula);
   return -1;
-
 }
 
 
@@ -67,7 +67,7 @@ int pesquisarAvenca(AvencaAtiva* head, char* matricula) {
 
   while (atual != NULL) {
     // Verifica se a matrícula coincide e se a avença está ativa (pago = 1)
-    if (strcmp(atual->matricula, matricula) == 0 && atual->pago == 1) {
+    if (strcmp(atual->matricula, matricula) == 0) {
       return 1; // Avença encontrada e válida
     }
     atual = atual->next;
@@ -84,7 +84,7 @@ void fiscalizar()
   scanf("%s", matricula);
 
   // Pesquisa titulo avulso
-  if (pesquisarTitulo(&head, matricula) == 1)
+  if (pesquisarTitulo(&head_titulos_avulsos, matricula) == 1)
   {
     printf("Válido por Título\n");
     return;

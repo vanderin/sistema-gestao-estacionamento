@@ -13,72 +13,13 @@ void inicializarFila() {
     filaPedidosPagamento.fim = NULL;
 }
 
-void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano) {
-    static int id_gerador = 1;
-    Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
-    
-    if (novo == NULL)
-    {
-        printf("Erro ao criar novo pedido.\n");
-        return;
-    }
-
-    novo->id = id_gerador++;
-    strcpy(novo->matricula, matricula);
-    strcpy(novo->nome, nome);
-    strcpy(novo->zona, zona);
-    novo->mes = mes;
-    novo->ano = ano;
-    strcpy(novo->estado, "Submetido");
-    novo->next = NULL;
-
-    // Adicionar `a fila dos pedidos
-    if (filaPedidos.fim == NULL) {
-        filaPedidos.frente = novo;
-    } else {
-        filaPedidos.fim->next = novo;
-    }
-    filaPedidos.fim = novo;
-
-    // Log
-    push("Novo pedido de avença submetido.");
-}
-
-void listarPedidos() {
-    Pedido* atual = filaPedidos.frente;
-    printf("\n--- PEDIDOS DE AVENÇA ---\n");
-    while (atual) {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
-               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
-        atual = atual->next;
-    }
-}
-
-void listarPedidosPagamento() {
-    Pedido* atual = filaPedidosPagamento.frente;
-    
-    printf("\n--- PEDIDOS DE AVENÇA A AGUARDAR PAGAMENTO ---\n");
-    while (atual) {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
-               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
-        atual = atual->next;
-    }
-}
-
-// EDITAR ISTO
-void listarAvencasAtivas() {
-    AvencaAtiva* atual = listaAvencasAtivas;
-    printf("\n--- AVENÇAS ATIVAS ---\n");
-    while (atual) {
-        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %i/%i\n",
-               atual->id, atual->matricula, atual->zona, atual->mes, atual->ano);
-        atual = atual->next;
-    }
-}
-
 // Adiciona o pedido a uma fila
 void adicionarPedido(FilaPedidos* fila, Pedido* pedido)
 {   
+    if (fila == NULL || pedido == NULL) return;
+
+    pedido->next = NULL;
+
     if (fila->frente == NULL)
     {
         fila->frente = pedido;
@@ -90,8 +31,6 @@ void adicionarPedido(FilaPedidos* fila, Pedido* pedido)
     fila->fim->next = pedido;
     fila->fim = pedido;
 }
-
-void adicionarAListaAvencas();
 
 // Retira e apaga da memoria um pedido de uma fila
 void rejeitarPedido(FilaPedidos* fila)
@@ -111,7 +50,7 @@ void rejeitarPedido(FilaPedidos* fila)
         
     free(del_pedido);
 }
-    
+
 // Aprova o Pedido: Retira o pedido de uma fila (filaPedidos) e move para outra fila (filaPedidosPagamento)
 void aprovarPedido(FilaPedidos* filaPedidos, FilaPedidos* filaPedidosPagamento)
 {
@@ -171,6 +110,66 @@ void processarProximoPedido(FilaPedidos* filaPedidos) {
         rejeitarPedido(filaPedidos);
     }
 }
+
+void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano) {
+    static int id_gerador = 1;
+    Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
+    
+    if (novo == NULL)
+    {
+        printf("Erro ao criar novo pedido.\n");
+        return;
+    }
+
+    novo->id = id_gerador++;
+    strcpy(novo->matricula, matricula);
+    strcpy(novo->nome, nome);
+    strcpy(novo->zona, zona);
+    novo->mes = mes;
+    novo->ano = ano;
+    strcpy(novo->estado, "Submetido");
+    novo->next = NULL;
+    
+    // Adicionar `a fila dos pedidos
+    adicionarPedido(&filaPedidos, novo);
+
+    // Log
+    push("Novo pedido de avença submetido.");
+}
+
+void listarPedidos() {
+    Pedido* atual = filaPedidos.frente;
+    printf("\n--- PEDIDOS DE AVENÇA ---\n");
+    while (atual) {
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
+               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
+        atual = atual->next;
+    }
+}
+
+void listarPedidosPagamento() {
+    Pedido* atual = filaPedidosPagamento.frente;
+    
+    printf("\n--- PEDIDOS DE AVENÇA A AGUARDAR PAGAMENTO ---\n");
+    while (atual != NULL) {
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
+               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
+        atual = atual->next;
+    }
+}
+
+// EDITAR ISTO
+void listarAvencasAtivas() {
+    AvencaAtiva* atual = listaAvencasAtivas;
+    printf("\n--- AVENÇAS ATIVAS ---\n");
+    while (atual != NULL) {
+        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %d/%d\n",
+               atual->id, atual->matricula, atual->zona, atual->mes, atual->ano);
+        atual = atual->next;
+    }
+}
+
+void adicionarAListaAvencas();
 
 // Registar pagamento e ativar (Mover para Avenças Ativas)
 void pagarAvenca(char* matricula) {
