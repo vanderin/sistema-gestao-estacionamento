@@ -1,2 +1,49 @@
 [08/05/2026 17:35] Sistema iniciado.
 [08/05/2026 17:36] Sistema iniciado.
+[12/05/2026 22:57] Novo pedido de avença submetido.
+[12/05/2026 22:58] Novo pedido de avença submetido.
+[12/05/2026 23:08] Novo pedido de avença submetido.
+[12/05/2026 23:08] Novo pedido de avença submetido.
+[12/05/2026 23:09] Novo pedido de avença submetido.
+[12/05/2026 23:09] Novo pedido de avença submetido.
+[12/05/2026 23:11] Novo pedido de avença submetido.
+[12/05/2026 23:11] Novo pedido de avença submetido.
+[12/05/2026 23:12] Novo pedido de avença submetido.
+[12/05/2026 23:12] Pedido de avença aprovado.
+[12/05/2026 23:13] Novo pedido de avença submetido.
+[12/05/2026 23:13] Novo pedido de avença submetido.
+[12/05/2026 23:14] Novo pedido de avença submetido.
+[12/05/2026 23:14] Novo pedido de avença submetido.
+[12/05/2026 23:14] Pedido de avença aprovado.
+[12/05/2026 23:15] Novo pedido de avença submetido.
+[12/05/2026 23:15] Novo pedido de avença submetido.
+[12/05/2026 23:15] Novo pedido de avença submetido.
+[12/05/2026 23:16] Pedido de avença aprovado.
+[12/05/2026 23:16] Pagamento de avença recebido.
+[12/05/2026 23:22] Novo pedido de avença submetido.
+[12/05/2026 23:22] Pedido de avença aprovado.
+[12/05/2026 23:24] Novo pedido de avença submetido.
+[12/05/2026 23:24] Pedido de avença rejeitado.
+[12/05/2026 23:25] Novo pedido de avença submetido.
+[12/05/2026 23:25] Novo pedido de avença submetido.
+[12/05/2026 23:25] Pedido de avença aprovado.
+[12/05/2026 23:26] Novo pedido de avença submetido.
+[12/05/2026 23:26] Pedido de avença aprovado.
+[12/05/2026 23:26] Pagamento de avença recebido.
+[12/05/2026 23:26] Novo pedido de avença submetido.
+[12/05/2026 23:26] Pedido de avença aprovado.
+[12/05/2026 23:26] Pagamento de avença recebido.
+[12/05/2026 23:27] Novo pedido de avença submetido.
+[12/05/2026 23:27] Pedido de avença aprovado.
+[12/05/2026 23:27] Pagamento de avença recebido.
+[12/05/2026 23:27] Novo pedido de avença submetido.
+[12/05/2026 23:27] Pedido de avença aprovado.
+[12/05/2026 23:27] Pagamento de avença recebido.
+[12/05/2026 23:29] Novo pedido de avença submetido.
+[12/05/2026 23:29] Pedido de avença aprovado.
+[12/05/2026 23:29] Pagamento de avença recebido.
+[12/05/2026 23:34] Novo pedido de avença submetido.
+[12/05/2026 23:34] Pedido de avença aprovado.
+[12/05/2026 23:34] Pagamento de avença recebido.
+[12/05/2026 23:34] Novo pedido de avença submetido.
+[12/05/2026 23:35] Pedido de avença rejeitado.

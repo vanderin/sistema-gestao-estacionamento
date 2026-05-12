@@ -9,111 +9,38 @@
 #include "motor_de_pesquisa.h"
 #include "infracoes.h"
 
+int main()
+{
+    criarPedido("ABC123", "John", "A1", 01, 2020);
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
+    
+    processarProximoPedido(&filaPedidos);
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
+    
+    pagarAvenca("ABC123");
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
 
-void guardarDadosBinarios();
-void carregarDadosBinarios();
-
-void menuAvenças() {
-    int opcao;
-    char matricula[30], nome[100], zona[10], mes[10];
-    int mes_int, ano_int;
-
-    do {
-        printf("\n--- GESTaO DE AVENcAS ---");
-        printf("\n1. Submeter Pedido");
-        printf("\n2. Processar Proximo Pedido (Aprovar/Rejeitar)");
-        printf("\n3. Registar Pagamento e Ativar Avenca");
-        printf("\n4. Listar Pedidos Pendentes");
-        printf("\n5. Listar Avencas Ativas");
-        printf("\n0. Voltar");
-        printf("\nEscolha: ");
-        scanf("%d", &opcao);
-
-        switch (opcao) {
-            case 1:
-                printf("Matricula: "); scanf("%s", matricula);
-                printf("Nome: "); scanf("%s", nome);
-                printf("Zona (ex: C4): "); scanf("%s", zona);
-                printf("Mês/Ano (MM/AAAA): "); scanf("%s", mes);
-                if (sscanf(mes, "%d/%d", &mes_int, &ano_int) == 2)
-                    criarPedido(matricula, nome, zona, mes_int, ano_int);
-                else
-                    printf("Formato inválido. Use MM/AAAA.\n");
-                break;
-            case 2:
-                if (filaPedidos.frente == NULL) {
-                    printf("Fila vazia.\n");
-                } else {
-                    processarProximoPedido(&filaPedidos);
-                }
-                break;
-            case 3:
-                printf("Matrícula para pagamento: "); scanf("%s", matricula);
-                pagarAvenca(matricula);
-                break;
-            case 4:
-                listarPedidos();
-                break;
-            case 5:
-                listarAvencasAtivas();
-                break;
-        }
-    } while (opcao != 0);
-}
-
-int main() {
-    int opcao;
-
-    // Carregar dados guardados (Persistência Binária)
-    carregarDadosBinarios();
-    inicializarFila(); // Garante que os ponteiros da fila estão prontos se o ficheiro não existir
-
-    push("Sistema iniciado."); // Registo na Pilha de Sessão
-
-    do {
-        printf("\n========================================");
-        printf("\n   SISTEMA DE GESTÃO DE ESTACIONAMENTO");
-        printf("\n========================================");
-        printf("\n1. Emitir Título (Parquímetro)");
-        printf("\n2. Efetuar Fiscalização");
-        printf("\n3. Gestão de Avenças");
-        printf("\n4. Listar Títulos Ativos");
-        printf("\n5. Ver Histórico da Sessão (Pilha)");
-        printf("\n6. Ver Lista de Infrações");
-        printf("\n0. Sair e Guardar");
-        printf("\n----------------------------------------");
-        printf("\nEscolha: ");
-        scanf("%d", &opcao);
-
-        switch (opcao) {
-            case 1:
-                inserirTitulo(&head_titulos_avulsos);
-                push("Título emitido no parquímetro.");
-                break;
-            case 2:
-                fiscalizar(); // Fluxo sequencial
-                break;
-            case 3:
-                menuAvenças();
-                break;
-            case 4:
-                listarTitulos(&head_titulos_avulsos);
-                break;
-            case 5:
-                listarSessao();
-                break;
-            case 6:
-                listarInfracoes(&head_infracao);
-                break;
-            case 0:
-                printf("\nA guardar dados e a encerrar...\n");
-                guardarDadosBinarios();
-                limparPilha();
-                break;
-            default:
-                printf("\nOpção inválida!");
-        }
-    } while (opcao != 0);
-
-    return 0;
+    criarPedido("HGY632", "Malaquias", "B3", 5, 2026);
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
+    
+    processarProximoPedido(&filaPedidos);
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
+    
+    pagarAvenca("HGY632");
+    listarPedidos();
+    listarPedidosPagamento();
+    listarAvencasAtivas();
+    
+    
+   return 0;
 }

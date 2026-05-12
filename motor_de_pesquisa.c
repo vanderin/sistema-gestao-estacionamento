@@ -28,13 +28,13 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula)
 
   Titulo* current = *head_titulos_avulsos;
 
-  printf("A procurar a matrícula nos Titulos Avulsos...\n")
+  printf("A procurar a matrícula nos Titulos Avulsos...\n");
   // Percorre a lista dos Titulos Avulsos
   while (current != NULL)
   {
     if (strcmp(matricula, current->matricula) == 0)
     {
-      printf("Matricula encontrada!\nA verificar a validade para as %d:%d\n");
+      printf("Matricula encontrada!\nA verificar a validade para as %d:%d\n", horas, minutos);
       
       // Titulo invalido (hora do fim ultrapassada)
       /*
@@ -72,7 +72,7 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula)
   {
     Infracao* current = *head_infracao;
     
-    printf("A procurar a matrícula nas Infrações...\n")
+    printf("A procurar a matrícula nas Infrações...\n");
 
     // Se a matricula for encontrada nas infraçoes, retornar 1
     while (current != NULL)
@@ -94,7 +94,7 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula)
 int pesquisarAvenca(AvencaAtiva* head_avencas, char* matricula) {
   AvencaAtiva* atual = head_avencas;
 
-  printf("A procurar a matrícula nas Avenças...\n")
+  printf("A procurar a matrícula nas Avenças...\n");
   while (atual != NULL) {
 
     if (strcmp(atual->matricula, matricula) == 0) {
@@ -103,7 +103,7 @@ int pesquisarAvenca(AvencaAtiva* head_avencas, char* matricula) {
 
     atual = atual->next;
   }
-  printf("Matrícula não encontrada.\n")
+  printf("Matrícula não encontrada.\n");
   return -1; // Nenhuma avença válida encontrada
 }
 
