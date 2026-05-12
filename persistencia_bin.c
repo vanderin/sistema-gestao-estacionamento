@@ -1,7 +1,3 @@
-//
-// Created by Utilizador on 21/04/2026.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "titulos_avulsos.h"

@@ -1,30 +1,34 @@
-//
-// Created by CisaveTek1 on 27/03/2026.
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "avencas.h"
 #include "historico_sessao.h"
 
-FilaPedidos filaPedidos = {NULL, NULL};
 AvencaAtiva* listaAvencasAtivas = NULL;
 
 void inicializarFila() {
     filaPedidos.frente = NULL;
     filaPedidos.fim = NULL;
+    filaPedidosPagamento.frente = NULL;
+    filaPedidosPagamento.fim = NULL;
 }
-// Submeter pedido (Adicionar à Fila)
-void submeterPedido(char* matricula, char* nome, char* zona, char* mes) {
+
+void criarPedido(char* matricula, char* nome, char* zona, char* mes) {
     static int id_gerador = 1;
     Pedido* novo = (Pedido*)malloc(sizeof(Pedido));
-    if (!novo) return;
+    
+    if (novo == NULL)
+    {
+        printf("Erro ao criar novo pedido.\n");
+        return;
+    }
 
     novo->id = id_gerador++;
     strcpy(novo->matricula, matricula);
     strcpy(novo->nome, nome);
     strcpy(novo->zona, zona);
-    strcpy(novo->mes_ano, mes);
+    novo->mes = mes;
+    novo->ano = ano;
     strcpy(novo->estado, "Submetido");
     novo->next = NULL;
 
@@ -38,39 +42,142 @@ void submeterPedido(char* matricula, char* nome, char* zona, char* mes) {
     push("Novo pedido de avença submetido."); // Registo na Pilha de Sessão
 }
 
-// Processar pedido (Retirar da Fila e decidir) [cite: 65]
-void processarProximoPedido(int aprovar) {
-    if (filaPedidos.frente == NULL) {
-        printf("Não existem pedidos pendentes.\n");
-        return;
-    }
-
-    Pedido* temp = filaPedidos.frente;
-
-    if (aprovar) {
-        strcpy(temp->estado, "Aprovado a aguardar pagamento");
-        printf("Pedido %d aprovado. Aguarda pagamento para ativação.\n", temp->id);
-        push("Pedido de avença aprovado.");
-        // Nota: O enunciado sugere que pedidos aprovados mas não pagos
-        // permanecem no sistema[cite: 20]. Aqui, poderiam ser movidos para uma lista temporária.
-    } else {
-        printf("Pedido %d rejeitado.\n", temp->id);
-        push("Pedido de avença rejeitado.");
-        filaPedidos.frente = filaPedidos.frente->next;
-        if (filaPedidos.frente == NULL) filaPedidos.fim = NULL;
-        free(temp);
+void listarPedidos() {
+    Pedido* atual = filaPedidos.frente;
+    printf("\n--- PEDIDOS DE AVENÇA ---\n");
+    while (atual) {
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
+               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
+        atual = atual->next;
     }
 }
 
-// Registar pagamento e ativar (Mover para Avenças Ativas) [cite: 19, 66]
+void listarPedidosPagamento() {
+    Pedido* atual = filaPedidosPagamento.frente;
+    
+    printf("\n--- PEDIDOS DE AVENÇA A AGUARDAR PAGAMENTO ---\n");
+    while (atual) {
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
+               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
+        atual = atual->next;
+    }
+}
+
+// EDITAR ISTO
+void listarAvencasAtivas() {
+    AvencaAtiva* atual = listaAvencasAtivas;
+    printf("\n--- AVENÇAS ATIVAS ---\n");
+    while (atual) {
+        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %s\n",
+               atual->id, atual->matricula, atual->zona, atual->mes_ano);
+        atual = atual->next;
+    }
+}
+
+// Adiciona o pedido a uma fila
+void adicionarPedido(FilaPedidos* fila, Pedido* pedido)
+{   
+    if (fila->frente == NULL)
+    {
+        fila->frente = pedido;
+        fila->fim = pedido;
+        
+        return;
+    }
+
+    fila->fim->next = pedido;
+    fila->fim = pedido;
+}
+
+// Retira e apaga da memoria um pedido de uma fila
+void rejeitarPedido(FilaPedidos* fila)
+{
+    if (fila->frente == NULL)
+    {
+        fila->fim = NULL;
+        
+        return NULL;
+    }
+
+    Pedido* del_pedido = fila->frente;
+
+    fila->frente = fila->frente->next;
+    if (fila->frente == NULL)
+        fila->fim = NULL;
+        
+    free(del_pedido);
+    }
+    
+// Aprova o Pedido: Retira o pedido de uma fila (filaPedidos) e move para outra fila (filaPedidosPagamento)
+void aprovarPedido(FIlaPedidos* filaPedidos, FilaPedidos filaPedidosPagamento)
+{
+    Pedido* pedido = filaPedidos->frente;
+
+    filaPedidos->frente = filaPedidos->frente->next;
+    if (filaPedidos->frente == NULL)
+        filaPedidos->fim = NULL;
+    
+    adicionarPedido(filaPedidosPagamento, pedido);
+}
+
+// Processar pedido (Ler primeiro Pedido da Fila e decidir)
+void processarProximoPedido(FilaPedidos* filaPedidos) {
+    if (filaPedidos.frente == NULL) {
+        printf("Não existem pedidos pendentes.\n");
+        
+        return;
+    }
+
+    int opcao = 0;
+
+    Pedido* temp = filaPedidos.frente;
+
+    printf("Pedido de Avença:\n");
+    printf("ID: %d\n", temp->id);
+    printf("Matrícula: %s\n", temp->matricula);
+    printf("Nome: %s\n", temp->nome);
+    printf("Zona: %s\n", temp->zona);
+    printf("Mes/Ano: %d/%d\n\n", temp->mes, temp->ano);
+
+    do
+    {
+        printf("1: Aprovar\n2: Rejeitar\n>> ");
+        scanf("%d", &opcao);
+    
+        if (opcao != 1 && opcao != 2)
+        {
+            printf("ERRO: Insira uma opção válida.\n");
+        }
+    }
+    while(opcao != 1 && opcao != 2);
+    
+    if (opcao == 1) {
+        Pedido* pedido_aprovado = filaPedidos->frente;
+
+        aprovarPedido(filaPedidos, &filaPedidosPagamento)
+
+        strcpy(pedido_aprovado->estado, "Aprovado a aguardar pagamento");
+
+        printf("Pedido %d aprovado. Aguarda pagamento para ativação.\n", pedido_aprovado->id);
+        push("Pedido de avença aprovado."); // Faz push para a stack do historico/logs
+        
+    } else {
+        printf("Pedido %d rejeitado.\n", temp->id);
+        push("Pedido de avença rejeitado.");
+        rejeitarPedido(filaPedidos);
+    }
+}
+
+// Registar pagamento e ativar (Mover para Avenças Ativas)
 void pagarAvenca(char* matricula) {
     // Procura nos pedidos aprovados
-    Pedido* atual = filaPedidos.frente;
+    Pedido* atual = filaPedidosPagamento.frente;
     Pedido* anterior = NULL;
+    
     while (atual != NULL) {
-        if (strcmp(atual->matricula, matricula) == 0 &&
-            strcmp(atual->estado, "Aprovado a aguardar pagamento") == 0) {
-            // Criar Avença Ativa [cite: 32]
+        if (strcmp(atual->matricula, matricula) == 0) 
+        {
+            // Criar Avença Ativa
             AvencaAtiva* nova = (AvencaAtiva*)malloc(sizeof(AvencaAtiva));
             nova->id = atual->id;
             strcpy(nova->matricula, atual->matricula);
@@ -94,24 +201,4 @@ void pagarAvenca(char* matricula) {
         atual = atual->next;
     }
     printf("Nenhum pedido aprovado encontrado para esta matrícula.\n");
-}
-
-void listarPedidos() {
-    Pedido* atual = filaPedidos.frente;
-    printf("\n--- PEDIDOS DE AVENÇA ---\n");
-    while (atual) {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s\n",
-               atual->id, atual->matricula, atual->nome, atual->zona, atual->estado);
-        atual = atual->next;
-    }
-}
-
-void listarAvencasAtivas() {
-    AvencaAtiva* atual = listaAvencasAtivas;
-    printf("\n--- AVENÇAS ATIVAS ---\n");
-    while (atual) {
-        printf("ID: %d | Matrícula: %s | Zona: %s | Validade: %s\n",
-               atual->id, atual->matricula, atual->zona, atual->mes_ano);
-        atual = atual->next;
-    }
 }
