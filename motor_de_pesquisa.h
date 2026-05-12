@@ -4,7 +4,7 @@
 #include "titulos_avulsos.h"
 #include "avencas.h"
 
-void pesquisarTitulo(Titulo** head);
+void pesquisarTitulo(Titulo** head_titulos_avulsos);
 void fiscalizar();
 int pesquisarAvenca(AvencaAtiva* head, char* matricula);
 #endif
