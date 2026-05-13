@@ -47,3 +47,50 @@
 [12/05/2026 23:34] Pagamento de avença recebido.
 [12/05/2026 23:34] Novo pedido de avença submetido.
 [12/05/2026 23:35] Pedido de avença rejeitado.
+[13/05/2026 01:23] Novo pedido de avença submetido.
+[13/05/2026 01:24] Novo pedido de avença submetido.
+[13/05/2026 01:45] Novo pedido de avença submetido.
+[13/05/2026 01:46] Novo pedido de avença submetido.
+[13/05/2026 01:48] Novo pedido de avença submetido.
+[13/05/2026 01:51] Novo pedido de avença submetido.
+[13/05/2026 01:52] Novo pedido de avença submetido.
+[13/05/2026 01:53] Novo pedido de avença submetido.
+[13/05/2026 01:54] Novo pedido de avença submetido.
+[13/05/2026 01:55] Novo pedido de avença submetido.
+[13/05/2026 01:56] Pedido de avença aprovado.
+[13/05/2026 01:56] Pedido de avença aprovado.
+[13/05/2026 01:57] Infracao registrada.
+[13/05/2026 01:58] Novo pedido de avença submetido.
+[13/05/2026 01:58] Pedido de avença aprovado.
+[13/05/2026 01:59] Novo pedido de avença submetido.
+[13/05/2026 02:00] Pedido de avença aprovado.
+[13/05/2026 02:01] Novo pedido de avença submetido.
+[13/05/2026 02:02] Pedido de avença rejeitado.
+[13/05/2026 02:02] Novo pedido de avença submetido.
+[13/05/2026 02:03] Pedido de avença aprovado.
+[13/05/2026 02:09] Novo pedido de avença submetido.
+[13/05/2026 02:12] Novo pedido de avença submetido.
+[13/05/2026 02:12] Pedido de avença aprovado.
+[13/05/2026 02:13] Novo pedido de avença submetido.
+[13/05/2026 02:19] Novo pedido de avença submetido.
+[13/05/2026 02:21] Novo pedido de avença submetido.
+[13/05/2026 02:23] Pedido de avença aprovado.
+[13/05/2026 02:23] Pagamento de avença recebido.
+[13/05/2026 02:35] Infracao registrada.
+[13/05/2026 02:45] Infracao registrada.
+[13/05/2026 03:04] Infracao registrada.
+[13/05/2026 03:05] Infracao registrada.
+[13/05/2026 03:08] Infracao registrada.
+[13/05/2026 03:09] Infracao registrada.
+[13/05/2026 03:10] Novo pedido de avença submetido.
+[13/05/2026 03:11] Pedido de avença aprovado.
+[13/05/2026 03:11] Pagamento de avença recebido.
+[13/05/2026 03:18] Infracao registrada.
+[13/05/2026 03:20] Infracao registrada.
+[13/05/2026 03:21] Infracao registrada.
+[13/05/2026 03:23] Novo pedido de avença submetido.
+[13/05/2026 03:25] Infracao registrada.
+[13/05/2026 04:10] Novo pedido de avença submetido.
+[13/05/2026 04:12] Pedido de avença aprovado.
+[13/05/2026 04:12] Pagamento de avença recebido.
+[13/05/2026 04:14] Infracao registrada.

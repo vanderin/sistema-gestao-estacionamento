@@ -25,22 +25,22 @@ void obterHoras(int horas, int minutos, Titulo* novo_titulo)
     return;
   }
 
-  printf("Tempo inserido: %d:%d:00\n", horas, minutos);
+  printf("Tempo inserido: %02d:%02d:00\n", horas, minutos);
   //printf("Horas Inicio: %d:%d:00\n", tm_inicio.tm_hour, tm_inicio.tm_min);
-  printf("Horas Fim: %d:%d:00\n", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
+  printf("Estacionamento válido até às: %02d:%02d:00\n", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
 }
 
 // Inserir valor e matricula
 void pedirValorMatricula(char matricula[30], float* valor)
 {
-  while (*valor < 1.00)
-    {
-      printf("Insira o valor a pagar (minimo 1.00€): ");
-      scanf("%f", valor);
-    }
-  
   printf("Insira a matricula do veiculo: ");
   scanf("%s", matricula);
+
+  while (*valor < 0.25)
+    {
+      printf("Insira o valor a pagar (mínimo 0.25€): ");
+      scanf("%f", valor);
+    }  
 }
 
 // Criar titulo
@@ -49,11 +49,17 @@ Titulo* criarTitulo()
   static int current_id = 1;
   char matricula[30];
   float valor = 0;
-  int minutos_total, horas, minutos;
+  int horas, minutos, incrementos, minutos_total;
   
   pedirValorMatricula(matricula, &valor); 
   
   Titulo* novo_titulo = (Titulo*)malloc(sizeof(Titulo));
+
+  if (novo_titulo == NULL)
+  {
+    printf("ERRO: Falha ao criar novo Título.\n");
+    return NULL;
+  }
 
   // Criar id
   novo_titulo->id = current_id;
@@ -63,7 +69,8 @@ Titulo* criarTitulo()
   strcpy(novo_titulo->matricula, matricula);
 
   // Calcular tempo de estacionamento a partir do valor
-  minutos_total = (valor / 0.25) * 15;
+  incrementos = valor / 0.25;
+  minutos_total = incrementos * 15;
   horas = minutos_total / 60;
   minutos = minutos_total % 60;
   
@@ -83,7 +90,7 @@ Titulo* criarTitulo()
 // Inserir titulo na linked list
 // endereço do endereço do primeiro elemento -> endereço do primeiro elemento -> primeiro elemento
 //               head                        ->             *head             ->       **head
-Titulo* inserirTitulo(Titulo** head)
+void inserirTitulo(Titulo** head)
 {
   Titulo* novo_titulo = criarTitulo();
 
@@ -91,13 +98,11 @@ Titulo* inserirTitulo(Titulo** head)
   if (*head == NULL)
   {
     *head = novo_titulo;
-    return *head;
+    return;
   }
 
   novo_titulo->next = *head;
   *head = novo_titulo;
-
-  return *head;
 }
 
 // Listar cada nó da linked list dos Titulos Avulsos

@@ -6,6 +6,8 @@
 
 FilaPedidos filaPedidos = {NULL, NULL};
 FilaPedidos filaPedidosPagamento = {NULL, NULL};
+
+Pedido* listaPedidosPagamento = NULL;
 AvencaAtiva* listaAvencasAtivas = NULL;
 
 void inicializarFila() {
@@ -103,7 +105,7 @@ void processarProximoPedido(FilaPedidos* filaPedidos) {
 
         strcpy(pedido_aprovado->estado, "Aprovado a aguardar pagamento");
 
-        printf("Pedido %d aprovado. Aguarda pagamento para ativação.\n", pedido_aprovado->id);
+        printf("Pedido %d aprovado. A aguardar pagamento para ativação.\n", pedido_aprovado->id);
         push("Pedido de avença aprovado."); // Faz push para a stack do historico/logs
         
     } else {
@@ -137,6 +139,12 @@ void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano) {
 
     // Log
     push("Novo pedido de avença submetido.");
+
+    printf("Criado Pedido de Avença:\n");
+    printf("\tMatrícula: %s\n", novo->matricula);
+    printf("\tNome: %s\n", novo->nome);
+    printf("\tZona: %s\n", novo->zona);
+    printf("\tData: %d/%d\n", novo->mes, novo->ano);
 }
 
 void listarPedidos() {
@@ -251,7 +259,7 @@ void pagarAvenca(char* matricula) {
         else if (dinheiro_inserido > 10)
         {
             printf("Pagamento realizado com sucesso.\n");
-            printf("Troco: %.2f\n", dinheiro_inserido - 10);
+            printf("Troco: %.2f €\n", dinheiro_inserido - 10);
         }
     }
     while (dinheiro_inserido < 10);
@@ -279,7 +287,6 @@ void pagarAvenca(char* matricula) {
     if (anterior == NULL) filaPedidosPagamento.frente = atual->next;
     else anterior->next = atual->next;
     if (atual == filaPedidosPagamento.fim) filaPedidosPagamento.fim = anterior;
-    
 
     free(atual);
     printf("Pagamento registado. Avença ativada para a matrícula %s (zona: %s).\n", nova->matricula, nova->zona);

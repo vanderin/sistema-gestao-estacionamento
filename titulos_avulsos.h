@@ -15,7 +15,7 @@ extern Titulo* head_titulos_avulsos;
 
 void pedirValorMatricula(char matricula[30], float* valor);
 Titulo* criarTitulo();
-Titulo* inserirTitulo(Titulo** head);
+void inserirTitulo(Titulo** head);
 void listarTitulos(Titulo** head);
 void obterHoras();
 
