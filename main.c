@@ -61,6 +61,9 @@ static void fluxoCliente(void)
                 pagarAvenca(matricula);
                 sleep(5);
                 break;
+            case 4:
+                listarSessao();
+                break;
             case 0:
                 break;
             default:
@@ -109,6 +112,10 @@ static void fluxoFiscal(void)
             case 6:
                 listarTitulos();
                 sleep(5);
+                break;
+            case 7:
+                listarSessao();
+                break;
             case 0:
                 break;
             default:
@@ -143,6 +150,9 @@ int main()
                 break;
             case 2:
                 fluxoFiscal();
+                break;
+            case 3:
+                listarSessao();
                 break;
             case 0:
                 break;

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "titulos_avulsos.h"
+#include "historico_sessao.h"
 
 Titulo* head_titulos_avulsos = NULL;
 
@@ -103,6 +104,8 @@ void inserirTitulo(Titulo** head)
 
   novo_titulo->next = *head;
   *head = novo_titulo;
+
+  push("Novo título avulso criado.");
 }
 
 // Listar cada nó da linked list dos Titulos Avulsos

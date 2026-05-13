@@ -139,6 +139,6 @@ void fiscalizar()
   }
 
   adicionarInfracao(&head_infracao, matricula);
-  registarNoHistoricoTXT("Infracao registrada.");
+  registarNoHistoricoTXT("Infracao registada.");
   printf("Inválido - Infração Registada.\n");
 }

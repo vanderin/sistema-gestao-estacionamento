@@ -19,7 +19,10 @@ void menuInicial()
     printf("\n========================================\n");
     
     printf("1: Clientes\n");
-    printf("2: Fiscais\n");
+    printf("2: Fiscais\n\n");
+
+    printf("3: Histórico da Sessão\n\n");
+
     printf("0: Sair\n");
     printf(">> ");
 }
@@ -33,7 +36,10 @@ void menuCliente()
     
     printf("1: Criar Título Avulso\n");
     printf("2: Criar Pedido de Avença\n");
-    printf("3: Efetuar Pagamento de Avença\n");
+    printf("3: Efetuar Pagamento de Avença\n\n");
+    
+    printf("4: Histórico da Sessão\n\n");
+    
     printf("0: Voltar Atrás\n");
     
     printf(">> ");
@@ -51,7 +57,10 @@ void menuFiscal()
     printf("3: Mostrar Pedidos de Avença\n");
     printf("4: Mostrar Pedidos a Aguardar Pagamento\n");
     printf("5: Mostrar Avenças Ativas\n");
-    printf("6: Mostrar Títulos Avulsos\n");
+    printf("6: Mostrar Títulos Avulsos\n\n");
+
+    printf("7: Histórico da Sessão\n\n");
+    
     printf("0: Voltar Atrás\n");
     
     printf(">> ");

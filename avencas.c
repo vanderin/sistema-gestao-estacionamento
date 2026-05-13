@@ -194,6 +194,8 @@ void adicionarAListaAvencas(AvencaAtiva* avenca)
 
     avenca->next = listaAvencasAtivas;
     listaAvencasAtivas = avenca;
+
+    push("Pedido de avença ativado.");
 }
 
 // Procurar pedido a aguardar pagamento por matricula
@@ -277,14 +279,14 @@ void pagarAvenca(char* matricula) {
     nova->ano = atual->ano;
     nova->next = NULL;
             
-    // Inserir na lista de Ativas
-    adicionarAListaAvencas(nova);
-            
     // Remover da lista de pedidos
     if (anterior == NULL) listaPedidosPagamento = atual->next;
     else anterior->next = atual->next;
-
+    
     free(atual);
     printf("Pagamento registado. Avença ativada para a matrícula %s (zona: %s).\n", nova->matricula, nova->zona);
     push("Pagamento de avença recebido.");
+    
+    // Inserir na lista de Ativas
+    adicionarAListaAvencas(nova);
 }
