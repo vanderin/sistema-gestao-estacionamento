@@ -51,6 +51,7 @@ void menuFiscal()
     printf("3: Mostrar Pedidos de Avença\n");
     printf("4: Mostrar Pedidos a Aguardar Pagamento\n");
     printf("5: Mostrar Avenças Ativas\n");
+    printf("6: Mostrar Títulos Avulsos\n");
     printf("0: Voltar Atrás\n");
     
     printf(">> ");

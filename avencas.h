@@ -32,7 +32,7 @@ typedef struct AvencaAtiva {
 
 // Globais para gestão (podem ser passadas por referência no main)
 extern FilaPedidos filaPedidos;
-extern FilaPedidos filaPedidosPagamento;
+extern Pedido* listaPedidosPagamento;
 extern AvencaAtiva* listaAvencasAtivas;
 
 // Protótipos

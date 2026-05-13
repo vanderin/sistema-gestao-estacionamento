@@ -106,6 +106,9 @@ static void fluxoFiscal(void)
                 listarAvencasAtivas();
                 sleep(5);
                 break;
+            case 6:
+                listarTitulos();
+                sleep(5);
             case 0:
                 break;
             default:

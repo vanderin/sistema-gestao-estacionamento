@@ -106,22 +106,16 @@ void inserirTitulo(Titulo** head)
 }
 
 // Listar cada nó da linked list dos Titulos Avulsos
-void listarTitulos(Titulo** head)
+void listarTitulos()
 {
-  if (*head == NULL)
-  {
-    printf("Lista de pedidos vazia.\n");
-    return;
-  }
-
-  Titulo* current = *head;
-
-  printf("\n");
+  Titulo* current = head_titulos_avulsos;
   
+  printf("\n--- TÍTULOS AVULSOS ---\n");
+
   while (current != NULL)
   {
     printf("Matricula: %s\n", current->matricula);
-    printf("Hora do fim: %d:%d:00\n", current->tm_fim.tm_hour, current->tm_fim.tm_min);
+    printf("Hora do fim: %02d:%02d:00\n", current->tm_fim.tm_hour, current->tm_fim.tm_min);
     printf("- - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
     
     current = current->next;
