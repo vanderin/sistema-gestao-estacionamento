@@ -12,10 +12,9 @@
 #include "infracoes.h"
 #include "menu.h"
 
-/*
+
 void guardarDadosBinarios();
 void carregarDadosBinarios();
-*/
 
 static void fluxoCliente(void)
 {
@@ -39,27 +38,30 @@ static void fluxoCliente(void)
         {
             case 1:
                 inserirTitulo(&head_titulos_avulsos);
-                sleep(5);
+                sleep(3);
+                limparTerminal();
                 break;
             case 2:
-                printf("Matrícula: ");
+                printPrompt("Matrícula: ");
                 scanf("%29s", matricula);
-                printf("Nome: ");
+                printPrompt("Nome: ");
                 scanf("%99s", nome);
-                printf("Zona: ");
+                printPrompt("Zona: ");
                 scanf("%9s", zona);
-                printf("Mês (1 - 12): ");
+                printPrompt("Mês (1 - 12): ");
                 scanf("%d", &mes);
-                printf("Ano: ");
+                printPrompt("Ano: ");
                 scanf("%d", &ano);
                 criarPedido(matricula, nome, zona, mes, ano);
-                sleep(5);
+                sleep(3);
+                limparTerminal();
                 break;
             case 3:
-                printf("Insira a Matrícula: ");
+                printPrompt("Insira a Matrícula: ");
                 scanf("%29s", matricula);
                 pagarAvenca(matricula);
-                sleep(5);
+                sleep(3);
+                limparTerminal();
                 break;
             case 4:
                 listarSessao();
@@ -67,7 +69,7 @@ static void fluxoCliente(void)
             case 0:
                 break;
             default:
-                printf("Opção inválida.\n");
+                printAviso("Opção inválida.\n");
                 break;
         }
     }
@@ -91,7 +93,7 @@ static void fluxoFiscal(void)
         {
             case 1:
                 fiscalizar();
-                sleep(10);
+                sleep(3);
                 break;
             case 2:
                 processarProximoPedido(&filaPedidos);
@@ -114,12 +116,15 @@ static void fluxoFiscal(void)
                 sleep(5);
                 break;
             case 7:
+                listarInfracoes();
+                break;
+            case 8:
                 listarSessao();
                 break;
             case 0:
                 break;
             default:
-                printf("Opção inválida.\n");
+                printAviso("Opção inválida.\n");
                 sleep(3);
                 break;
         }
@@ -132,7 +137,7 @@ int main()
     int opcao;
 
     inicializarFila();
-    // carregarDadosBinarios();
+    carregarDadosBinarios();
 
     do
     {
@@ -157,12 +162,12 @@ int main()
             case 0:
                 break;
             default:
-                printf("Opção inválida.\n");
+                printAviso("Opção inválida.\n");
                 break;
         }
     }
     while (opcao != 0);
 
-    // guardarDadosBinarios();
+    guardarDadosBinarios();
     return 0;
 }

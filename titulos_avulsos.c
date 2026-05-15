@@ -4,6 +4,7 @@
 #include <time.h>
 #include "titulos_avulsos.h"
 #include "historico_sessao.h"
+#include "menu.h"
 
 Titulo* head_titulos_avulsos = NULL;
 
@@ -22,24 +23,24 @@ void obterHoras(int horas, int minutos, Titulo* novo_titulo)
 
   // mktime() normaliza as horas. Por exemplo, ao somar 70 minutos a 12:50, o resultado vai ser 14:00 em vez de 12:120.
   if (mktime(&novo_titulo->tm_fim) == (time_t)-1) {
-    printf("Erro ao normalizar data/hora.\n");
+    printErro("Erro ao normalizar data/hora.\n");
     return;
   }
 
   printf("Tempo inserido: %02d:%02d:00\n", horas, minutos);
   //printf("Horas Inicio: %d:%d:00\n", tm_inicio.tm_hour, tm_inicio.tm_min);
-  printf("Estacionamento válido até às: %02d:%02d:00\n", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
+  printf("Estacionamento válido até às: %02d:%02d:00", novo_titulo->tm_fim.tm_hour, novo_titulo->tm_fim.tm_min);
 }
 
 // Inserir valor e matricula
 void pedirValorMatricula(char matricula[30], float* valor)
 {
-  printf("Insira a matricula do veiculo: ");
+  printPrompt("Insira a matricula do veiculo: ");
   scanf("%s", matricula);
 
   while (*valor < 0.25)
     {
-      printf("Insira o valor a pagar (mínimo 0.25€): ");
+      printPrompt("Insira o valor a pagar (mínimo 0.25€): ");
       scanf("%f", valor);
     }  
 }
@@ -51,6 +52,7 @@ Titulo* criarTitulo()
   char matricula[30];
   float valor = 0;
   int horas, minutos, incrementos, minutos_total;
+  int dia, mes, ano;
   
   pedirValorMatricula(matricula, &valor); 
   
@@ -58,7 +60,7 @@ Titulo* criarTitulo()
 
   if (novo_titulo == NULL)
   {
-    printf("ERRO: Falha ao criar novo Título.\n");
+    printErro("ERRO: Falha ao criar novo Título.\n");
     return NULL;
   }
 
@@ -80,6 +82,13 @@ Titulo* criarTitulo()
   // Obter hora de inicio e hora de fim
   obterHoras(horas, minutos, novo_titulo);
 
+  // Obter data atual
+  time_t agora = time(NULL);
+  struct tm* tm_local = localtime(&agora);
+  novo_titulo->dia = tm_local->tm_mday;
+  novo_titulo->mes = tm_local->tm_mon + 1;
+  novo_titulo->ano = tm_local->tm_year + 1900;
+
   // Proximo titulo
   novo_titulo->next = NULL;
 
@@ -99,6 +108,7 @@ void inserirTitulo(Titulo** head)
   if (*head == NULL)
   {
     *head = novo_titulo;
+    push("Novo título avulso criado.");
     return;
   }
 
@@ -117,9 +127,8 @@ void listarTitulos()
 
   while (current != NULL)
   {
-    printf("Matricula: %s\n", current->matricula);
-    printf("Hora do fim: %02d:%02d:00\n", current->tm_fim.tm_hour, current->tm_fim.tm_min);
-    printf("- - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+    printf("Matrícula: %s | Válido até: %02d:%02d:00 %02d/%02d/%02d", current->matricula, current->tm_fim.tm_hour, current->tm_fim.tm_min, current->dia, current->mes, current->ano);
+    printf("\n- - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
     
     current = current->next;
   }

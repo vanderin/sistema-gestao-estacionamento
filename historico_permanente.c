@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <time.h>
 #include "historico_permanente.h"
+#include "menu.h"
 
 void registarNoHistoricoTXT(char *mensagem) {
     // Abre "a" para nunca apagar o passado
     FILE *f = fopen("historico.txt", "a");
 
     if (f == NULL) {
-        printf("Erro ao abrir historico.txt para escrita.\n");
+        printErro("Erro ao abrir historico.txt para escrita.\n");
         return;
     }
 

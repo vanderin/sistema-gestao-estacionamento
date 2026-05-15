@@ -3,6 +3,7 @@
 #include <string.h>
 #include "avencas.h"
 #include "historico_sessao.h"
+#include "menu.h"
 
 FilaPedidos filaPedidos = {NULL, NULL};
 
@@ -86,12 +87,13 @@ void processarProximoPedido(FilaPedidos* filaPedidos) {
 
     do
     {
-        printf("1: Aprovar\n2: Rejeitar\n>> ");
+        printf("1: Aprovar\n2: Rejeitar\n");
+        printPrompt(">> ");
         scanf("%d", &opcao);
     
         if (opcao != 1 && opcao != 2)
         {
-            printf("ERRO: Insira uma opção válida.\n");
+            printErro("ERRO: Insira uma opção válida.\n");
         }
     }
     while(opcao != 1 && opcao != 2);
@@ -119,7 +121,7 @@ void criarPedido(char* matricula, char* nome, char* zona, int mes, int ano) {
     
     if (novo == NULL)
     {
-        printf("Erro ao criar novo pedido.\n");
+        printErro("Erro ao criar novo pedido.\n");
         return;
     }
 
@@ -151,7 +153,7 @@ void listarPedidos() {
     printf("\n--- PEDIDOS DE AVENÇA ---\n");
     while (atual != NULL)
     {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s | Validade: %02d/%d\n",
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s | Mês/Ano: %02d/%d\n",
             atual->id, atual->matricula, atual->nome, atual->zona, atual->estado, atual->mes, atual->ano);
             
             atual = atual->next;
@@ -165,7 +167,7 @@ void listarPedidosPagamento() {
     printf("\n--- PEDIDOS DE AVENÇA A AGUARDAR PAGAMENTO ---\n");
     while (atual != NULL)
     {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s | Validade: %02d/%d\n",
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Estado: %s | Mês/Ano: %02d/%d\n",
             atual->id, atual->matricula, atual->nome, atual->zona, atual->estado, atual->mes, atual->ano);
 
         atual = atual->next;
@@ -179,7 +181,7 @@ void listarAvencasAtivas() {
     printf("\n--- AVENÇAS ATIVAS ---\n");
     while (atual != NULL) 
     {
-        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Validade: %02d/%d\n",
+        printf("ID: %d | Matrícula: %s | Nome: %s | Zona: %s | Mês/Ano: %02d/%d\n",
                atual->id, atual->matricula, atual->nome, atual->zona, atual->mes, atual->ano);
 
         atual = atual->next;
@@ -248,14 +250,14 @@ void pagarAvenca(char* matricula) {
     
     do
     {
-        printf("Efetue o pagamento da Avença (10 €): ");
+        printPrompt("Efetue o pagamento da Avença (10 €): ");
         scanf("%f", &dinheiro_inserido);
 
         if (dinheiro_inserido < 10)
         {
-            printf("Valor inserido insuficiente. Introduza novamente.\n");
+            printErro("Valor inserido insuficiente. Introduza novamente.\n");
         }
-        else if (dinheiro_inserido > 10)
+        else
         {
             printf("Pagamento realizado com sucesso.\n");
             printf("Troco: %.2f €\n", dinheiro_inserido - 10);
@@ -267,7 +269,7 @@ void pagarAvenca(char* matricula) {
     AvencaAtiva* nova = (AvencaAtiva*)malloc(sizeof(AvencaAtiva));
     if (nova == NULL)
     {
-        printf("Erro ao ativar avença: memória insuficiente.\n");
+        printErro("Erro ao ativar avença: memória insuficiente.\n");
         return;
     }
 

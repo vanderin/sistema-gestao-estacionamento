@@ -3,6 +3,49 @@
 
 #include "menu.h"
 
+#define C_RESET   "\033[0m"
+#define C_TITULO  "\033[1;36m"
+#define C_OPCAO   "\033[0;37m"
+#define C_PROMPT  "\033[0;33m"
+#define C_SAIDA   "\033[0;37m"
+#define C_AVISO   "\033[1;33m"
+#define C_ERRO    "\033[1;31m"
+
+static void printComCor(const char *cor, const char *texto)
+{
+    printf("%s%s%s", cor, texto, C_RESET);
+}
+
+void printTitulo(const char *texto)
+{
+    printComCor(C_TITULO, texto);
+}
+
+void printOpcao(const char *texto)
+{
+    printComCor(C_OPCAO, texto);
+}
+
+void printPrompt(const char *texto)
+{
+    printComCor(C_PROMPT, texto);
+}
+
+void printSaida(const char *texto)
+{
+    printComCor(C_SAIDA, texto);
+}
+
+void printAviso(const char *texto)
+{
+    printComCor(C_AVISO, texto);
+}
+
+void printErro(const char *texto)
+{
+    printComCor(C_ERRO, texto);
+}
+
 void limparTerminal() {
     #ifdef _WIN32
         system("cls");
@@ -14,54 +57,55 @@ void limparTerminal() {
 void menuInicial()
 {
     //limparTerminal();
-    printf("\n========================================");
-    printf("\n   SISTEMA DE GESTÃO DE ESTACIONAMENTO");
-    printf("\n========================================\n");
+    printTitulo("\n========================================");
+    printTitulo("\n   SISTEMA DE GESTÃO DE ESTACIONAMENTO");
+    printTitulo("\n========================================\n");
     
-    printf("1: Clientes\n");
-    printf("2: Fiscais\n\n");
+    printOpcao("1: Clientes\n");
+    printOpcao("2: Fiscais\n\n");
 
-    printf("3: Histórico da Sessão\n\n");
+    printOpcao("3: Histórico da Sessão\n\n");
 
-    printf("0: Sair\n");
-    printf(">> ");
+    printOpcao("0: Sair\n");
+    printPrompt(">> ");
 }
 
 void menuCliente()
 {
     //limparTerminal();
-    printf("\n========================================");
-    printf("\n              MENU CLIENTE");
-    printf("\n========================================\n");
+    printTitulo("\n========================================");
+    printTitulo("\n              MENU CLIENTE");
+    printTitulo("\n========================================\n");
     
-    printf("1: Criar Título Avulso\n");
-    printf("2: Criar Pedido de Avença\n");
-    printf("3: Efetuar Pagamento de Avença\n\n");
+    printOpcao("1: Criar Título Avulso\n");
+    printOpcao("2: Criar Pedido de Avença\n");
+    printOpcao("3: Efetuar Pagamento de Avença\n\n");
     
-    printf("4: Histórico da Sessão\n\n");
+    printOpcao("4: Histórico da Sessão\n\n");
     
-    printf("0: Voltar Atrás\n");
+    printOpcao("0: Voltar Atrás\n");
     
-    printf(">> ");
+    printPrompt(">> ");
 }
 
 void menuFiscal()
 {
     //limparTerminal();
-    printf("\n========================================");
-    printf("\n              MENU FISCAL");
-    printf("\n========================================\n");
+    printTitulo("\n========================================");
+    printTitulo("\n              MENU FISCAL");
+    printTitulo("\n========================================\n");
     
-    printf("1: Fiscalizar\n");
-    printf("2: Processar Pedido de Avença\n");
-    printf("3: Mostrar Pedidos de Avença\n");
-    printf("4: Mostrar Pedidos a Aguardar Pagamento\n");
-    printf("5: Mostrar Avenças Ativas\n");
-    printf("6: Mostrar Títulos Avulsos\n\n");
+    printOpcao("1: Fiscalizar\n");
+    printOpcao("2: Processar Pedido de Avença\n");
+    printOpcao("3: Mostrar Pedidos de Avença\n");
+    printOpcao("4: Mostrar Pedidos a Aguardar Pagamento\n");
+    printOpcao("5: Mostrar Avenças Ativas\n");
+    printOpcao("6: Mostrar Títulos Avulsos\n");
+    printOpcao("7: Mostrar Infrações\n\n");
 
-    printf("7: Histórico da Sessão\n\n");
+    printOpcao("8: Histórico da Sessão\n\n");
     
-    printf("0: Voltar Atrás\n");
+    printOpcao("0: Voltar Atrás\n");
     
-    printf(">> ");
+    printPrompt(">> ");
 }

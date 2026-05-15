@@ -7,8 +7,9 @@
 #include "titulos_avulsos.h"
 #include "infracoes.h"
 #include "avencas.h"
+#include "menu.h"
 
-int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, int minutos)
+int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, int minutos, int dia, int mes, int ano)
 {
   /*
   time_t agora = time(NULL);
@@ -29,13 +30,13 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, i
   {
     if (strcmp(matricula, current->matricula) == 0)
     {
-      printf("Matrícula Encontrada. A Verificar a Validade para as %02d:%02d...\n", horas, minutos);
+      printf("Matrícula Encontrada. A Verificar a Validade para as %02d:%02d de %02d/%02d/%02d...\n", horas, minutos, dia, mes, ano);
       sleep(3);
       
-       // Verifica se à hora introduzida, o veículo está a cometer uma infração (Titulo expirado)
-       if (horas > current->tm_fim.tm_hour || (horas == current->tm_fim.tm_hour && minutos > current->tm_fim.tm_min))
+       // Verifica se à hora e data introduzidas, o veículo está a cometer uma infração (Titulo expirado)
+       if (ano != current->ano || mes != current->mes || dia != current->dia || horas > current->tm_fim.tm_hour || (horas == current->tm_fim.tm_hour && minutos > current->tm_fim.tm_min))
        {
-         printf("Titulo Expirado\n");
+         printf("Título Inválido.\n");
          return -1;
         }
         
@@ -52,9 +53,9 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, i
   }
   
   
-  int pesquisarInfracao(Infracao** head_infracao, char* matricula)
+  int pesquisarInfracao(char* matricula, int dia, int mes, int ano)
   {
-    Infracao* current = *head_infracao;
+    Infracao* current = head_infracao;
     
     printf("A Procurar na Lista de Infrações...\n");
     sleep(3);
@@ -62,7 +63,7 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, i
     // Se a matricula for encontrada nas infraçoes, retornar 1
     while (current != NULL)
     {
-      if (strcmp(matricula, current->matricula) == 0)
+      if ( (strcmp(matricula, current->matricula) == 0) && (ano == current->ano) && (mes == current->mes) && (dia == current->dia) )
       {
         return 1;
       }
@@ -71,7 +72,6 @@ int pesquisarTitulo(Titulo** head_titulos_avulsos, char* matricula, int horas, i
     }
     
     // Caso nao tenha sido encontrada, retornar -1
-
     return -1;
   }
 
@@ -100,26 +100,28 @@ int pesquisarAvenca(AvencaAtiva* head_avencas, char* matricula, char* zona, int 
 void fiscalizar()
 {
   char matricula[30], zona[10];
-  int ano, mes, horas, minutos;
+  int ano, mes, dia, horas, minutos;
 
-  printf("Introduza a Matricula: ");
+  printPrompt("Introduza a Matricula: ");
   scanf("%s", matricula);
   
-  printf("Introduza a Zona: ");
+  printPrompt("Introduza a Zona: ");
   scanf("%s", zona);
   
-  printf("Introduza o Mês (MM): ");
+  printPrompt("Introduza o Dia (MM): ");
+  scanf("%d", &dia);
+  printPrompt("Introduza o Mês (MM): ");
   scanf("%d", &mes);
-  printf("Introduza o Ano (AAAA): ");
+  printPrompt("Introduza o Ano (AAAA): ");
   scanf("%d", &ano);
 
-  printf("Insira a hora (HH): ");
+  printPrompt("Insira a hora (HH): ");
   scanf("%d", &horas);
-  printf("Insira os minutos (MM): ");
+  printPrompt("Insira os minutos (MM): ");
   scanf("%d", &minutos);
 
   // Pesquisa titulo avulso
-  if (pesquisarTitulo(&head_titulos_avulsos, matricula, horas, minutos) == 1)
+  if (pesquisarTitulo(&head_titulos_avulsos, matricula, horas, minutos, dia, mes, ano) == 1)
   {
     printf("Válido por Título.\n");
     return;
@@ -132,13 +134,14 @@ void fiscalizar()
   }
 
   // Pesquisa infraçao
-  if (pesquisarInfracao(&head_infracao, matricula) == 1)
+  if (pesquisarInfracao(matricula, dia, mes, ano) == 1)
   {
     printf("Infração Registada no Mesmo Dia.\n");
     return;
   }
 
-  adicionarInfracao(&head_infracao, matricula);
-  registarNoHistoricoTXT("Infracao registada.");
+  adicionarInfracao(matricula, dia, mes, ano, horas, minutos);
+  
   printf("Inválido - Infração Registada.\n");
+  registarNoHistoricoTXT("Infração registada.");
 }
